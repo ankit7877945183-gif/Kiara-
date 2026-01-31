@@ -8,18 +8,18 @@
 body{
   margin:0;
   overflow:hidden;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   background: radial-gradient(circle at top, #ffd6ec, #ffeef6);
 }
 
-/* Floating text */
+/* Floating text style */
 .text{
   position:absolute;
   font-size:20px;
   color:#ff4d88;
   font-weight:bold;
   white-space:nowrap;
-  text-shadow: 0 0 10px rgba(255,77,136,0.6);
+  text-shadow:0 0 10px rgba(255,77,136,0.6);
   animation: floatUp linear infinite;
 }
 
@@ -28,7 +28,7 @@ body{
   to { transform: translateY(-20vh); opacity:0; }
 }
 
-/* Center start button */
+/* Start button center */
 .center{
   position:absolute;
   top:50%;
@@ -54,11 +54,26 @@ button{
   <button onclick="startMagic()">Tap for Magic 💖</button>
 </div>
 
-<audio id="bgMusic" loop>
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto">
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5bbd14b9b0.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+const music = document.getElementById("bgMusic");
+
+function startMagic(){
+  music.volume = 0.7;
+  music.play().catch(()=>{});
+  document.querySelector(".center").style.display="none";
+}
+
+/* Mobile backup trigger */
+document.addEventListener("touchstart", () => {
+  music.play().catch(()=>{});
+}, { once: true });
+
+/* Your Romantic Lines */
 const lines = [
 "I am always available for you, my princess…",
 "You can count on me…",
@@ -66,12 +81,7 @@ const lines = [
 "Forever here for you 💖"
 ];
 
-function startMagic(){
-  document.getElementById("bgMusic").play();
-  document.querySelector(".center").style.display="none";
-}
-
-/* Create floating sentences */
+/* Floating sentences generator */
 function createText(){
   const span=document.createElement("span");
   span.className="text";
