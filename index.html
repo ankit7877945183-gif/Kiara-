@@ -7,32 +7,36 @@
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#ffd6ec,#ffeef6);
+  overflow:hidden;
+  font-family: 'Arial', sans-serif;
+  background: radial-gradient(circle at top, #ffd6ec, #ffeef6);
+}
+
+/* Floating Text Style */
+.text{
+  position:absolute;
+  font-size:20px;
+  color:#ff4d88;
+  font-weight:bold;
+  white-space:nowrap;
+  animation: floatText linear infinite;
+  text-shadow: 0 0 10px rgba(255,77,136,0.5);
+}
+
+@keyframes floatText{
+  from { transform: translateY(110vh); opacity:1; }
+  to { transform: translateY(-20vh); opacity:0; }
+}
+
+/* Center Message */
+.centerMsg{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
   text-align:center;
+  color:#d63384;
 }
-
-/* Container fix */
-.wrapper{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
-/* Card */
-.box{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.2);
-  max-width:350px;
-  width:100%;
-}
-
-h1{color:#ff4d88}
-p{font-size:18px;color:#444;margin-bottom:20px}
 
 button{
   background:#ff4d88;
@@ -41,53 +45,43 @@ button{
   padding:12px 22px;
   border-radius:10px;
   font-size:16px;
-}
-
-/* Hearts */
-.heart{
-  position:fixed;
-  bottom:-20px;
-  color:#ff4d88;
-  animation:floatUp 6s linear infinite;
-}
-
-@keyframes floatUp{
-  to{transform:translateY(-110vh);opacity:0}
+  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
-  <div class="box">
-    <h1>Hey My Princess 🌸☘️</h1>
-    <p>
-      I am always available for you my princess 🌸☘️ <br>
-      so whatever you need just order ☺️
-    </p>
-    <button onclick="playMusic()">Always Here 💖</button>
-  </div>
+<!-- CENTER MESSAGE -->
+<div class="centerMsg">
+  <h2>Hey My Princess 🌸☘️</h2>
+  <button onclick="startMusic()">Tap for Magic 💖</button>
 </div>
 
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5bbd14b9b0.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function playMusic(){
+function startMusic(){
   document.getElementById("bgMusic").play();
 }
 
-setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="💖";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(Math.random()*20+15)+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},500);
+/* Floating Sentences */
+const sentence = "I am always available for you my princess 🌸☘️ so whatever you need just order ☺️";
+
+function createText(){
+  const span=document.createElement("span");
+  span.className="text";
+  span.innerText=sentence;
+  span.style.left=Math.random()*100+"vw";
+  span.style.animationDuration=(Math.random()*10+8)+"s";
+  document.body.appendChild(span);
+  setTimeout(()=>span.remove(),15000);
+}
+
+setInterval(createText,800);
 </script>
 
 </body>
