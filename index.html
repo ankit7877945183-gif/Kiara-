@@ -2,48 +2,58 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Princess 🌸</title>
+<title>For My Princess 💖</title>
 
 <style>
 body{
   margin:0;
   overflow:hidden;
+  background: radial-gradient(circle at center, #ffe6f2, #ffccdd, #ffc2e0);
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #ffd6ec, #ffeef6);
+  perspective: 800px;
 }
 
-/* Floating text style */
-.text{
-  position:absolute;
-  font-size:20px;
-  color:#ff4d88;
-  font-weight:bold;
-  white-space:nowrap;
-  text-shadow:0 0 10px rgba(255,77,136,0.6);
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp{
-  from { transform: translateY(110vh); opacity:1; }
-  to { transform: translateY(-20vh); opacity:0; }
-}
-
-/* Start button center */
+/* Start Button */
 .center{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   text-align:center;
+  z-index:5;
 }
 
 button{
   background:#ff4d88;
   color:white;
   border:none;
-  padding:12px 22px;
-  border-radius:10px;
-  font-size:16px;
+  padding:14px 25px;
+  border-radius:12px;
+  font-size:18px;
+  box-shadow:0 0 15px #ff4d88;
+}
+
+/* 3D Floating Text */
+.text{
+  position:absolute;
+  font-size:22px;
+  font-weight:bold;
+  color:#ff3399;
+  text-shadow:0 0 15px rgba(255,0,120,0.8);
+  white-space:nowrap;
+  animation: fly 10s linear forwards;
+}
+
+@keyframes fly{
+  0%{
+    transform: translateZ(-600px) translateY(100vh) scale(0.3);
+    opacity:0;
+  }
+  30%{opacity:1;}
+  100%{
+    transform: translateZ(300px) translateY(-20vh) scale(1.2);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -54,8 +64,8 @@ button{
   <button onclick="startMagic()">Tap for Magic 💖</button>
 </div>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5bbd14b9b0.mp3" type="audio/mpeg">
 </audio>
 
@@ -63,17 +73,12 @@ button{
 const music = document.getElementById("bgMusic");
 
 function startMagic(){
-  music.volume = 0.7;
+  music.volume = 0.8;
   music.play().catch(()=>{});
   document.querySelector(".center").style.display="none";
 }
 
-/* Mobile backup trigger */
-document.addEventListener("touchstart", () => {
-  music.play().catch(()=>{});
-}, { once: true });
-
-/* Your Romantic Lines */
+/* Romantic Lines */
 const lines = [
 "I am always available for you, my princess…",
 "You can count on me…",
@@ -81,18 +86,16 @@ const lines = [
 "Forever here for you 💖"
 ];
 
-/* Floating sentences generator */
 function createText(){
   const span=document.createElement("span");
   span.className="text";
   span.innerText = lines[Math.floor(Math.random()*lines.length)];
-  span.style.left = Math.random()*90 + "vw";
-  span.style.animationDuration = (Math.random()*10 + 8) + "s";
+  span.style.left = Math.random()*80 + "vw";
   document.body.appendChild(span);
-  setTimeout(()=>span.remove(),15000);
+  setTimeout(()=>span.remove(),10000);
 }
 
-setInterval(createText,900);
+setInterval(createText,800);
 </script>
 
 </body>
