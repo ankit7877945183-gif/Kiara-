@@ -9,28 +9,31 @@ body{
   margin:0;
   font-family:Arial, sans-serif;
   background:linear-gradient(135deg,#ffd6ec,#ffeef6);
+  text-align:center;
+}
+
+/* Container fix */
+.wrapper{
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
-  text-align:center;
-  overflow:hidden;
+  padding:20px;
 }
 
 /* Card */
 .box{
   background:white;
-  padding:35px;
+  padding:30px;
   border-radius:20px;
   box-shadow:0 15px 35px rgba(0,0,0,0.2);
-  animation:fadeIn 2s ease-in-out;
-  z-index:2;
   max-width:350px;
+  width:100%;
 }
+
 h1{color:#ff4d88}
 p{font-size:18px;color:#444;margin-bottom:20px}
 
-/* Button */
 button{
   background:#ff4d88;
   color:white;
@@ -38,32 +41,44 @@ button{
   padding:12px 22px;
   border-radius:10px;
   font-size:16px;
-  cursor:pointer;
 }
 
-/* Floating Hearts */
+/* Hearts */
 .heart{
-  position:absolute;
+  position:fixed;
+  bottom:-20px;
   color:#ff4d88;
   animation:floatUp 6s linear infinite;
 }
 
 @keyframes floatUp{
-  0%{transform:translateY(100vh);opacity:1}
-  100%{transform:translateY(-10vh);opacity:0}
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9)}
-  to{opacity:1;transform:scale(1)}
+  to{transform:translateY(-110vh);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEART ANIMATION SCRIPT -->
+<div class="wrapper">
+  <div class="box">
+    <h1>Hey My Princess 🌸☘️</h1>
+    <p>
+      I am always available for you my princess 🌸☘️ <br>
+      so whatever you need just order ☺️
+    </p>
+    <button onclick="playMusic()">Always Here 💖</button>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5bbd14b9b0.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+function playMusic(){
+  document.getElementById("bgMusic").play();
+}
+
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.className="heart";
@@ -73,29 +88,6 @@ setInterval(()=>{
   document.body.appendChild(heart);
   setTimeout(()=>heart.remove(),6000);
 },500);
-</script>
-
-<!-- MAIN CARD -->
-<div class="box">
-  <h1>Hey My Princess 🌸☘️</h1>
-  <p>
-    I am always available for you my princess 🌸☘️ <br>
-    so whatever you need just order ☺️
-  </p>
-
-  <button onclick="playMusic()">Always Here 💖</button>
-</div>
-
-<!-- AUDIO (Plays only after button click) -->
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5bbd14b9b0.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-function playMusic(){
-  document.getElementById("bgMusic").play();
-  alert("Music started 💖");
-}
 </script>
 
 </body>
